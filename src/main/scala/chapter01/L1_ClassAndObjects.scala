@@ -48,5 +48,39 @@ object L1_ClassAndObjects {
         println(person.gender)
 
         L1_ClassAndObjects(1000) // object本来不能传参(不是class那种传参构造), 如果看到传参 那么这个object中有apply方法
+        println("*******************************************") // mark the end of chap "class & object"
+        // *******************************************
+
+        for (i <- 1 to 10) print(i)
+        println()
+        for (i <- 1 until 10) print(i)
+        println()
+        val i = 1.to(10,2)
+        println(i)
+        val a = 1.until(10,3)
+        println(a)
+
+        // 方法1
+        /*for (i <- 1 to 9){
+            for (j <- 1 to 9){
+                if (i>=j) {
+                    print(i +"*"+j +"="+i*j +"\t")
+                }
+                if (i ==j) println()
+            }
+        }*/
+        // 方法2
+        for (i <- 1 to 9 ; j <- 1 to 9){
+            {
+                if (i>=j) {
+                    print(i +"*"+j +"="+i*j +"\t")
+                }
+                if (i ==j) println()
+            }
+        }
+
+        // 条件可以写在for循环内部; 用;或者空格隔开
+        for (i <- 1 to 30 if(i > 10) if (i % 3 == 0)) print(i + "\t")
+
     }
 }
