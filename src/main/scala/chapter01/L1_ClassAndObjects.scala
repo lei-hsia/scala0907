@@ -82,5 +82,16 @@ object L1_ClassAndObjects {
         // 条件可以写在for循环内部; 用;或者空格隔开
         for (i <- 1 to 30 if(i > 10) if (i % 3 == 0)) print(i + "\t")
 
+        // yield关键字: 生成一个满足条件的所有i组成的vector
+        val list = for (i <- 1 to 40 if(i > 20);if(i%2==0) ) yield i
+        println(list)
+
+        // while; do while
+        var k = 200
+        while (k < 210) {
+            print(s"第 $k 次 \t")
+            k+=1
+        }
+        // do while省却
     }
 }
