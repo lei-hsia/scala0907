@@ -33,14 +33,20 @@ object L1_ClassAndObjects {
     // 静态的先执行
     println("this comes first == static")
 
+    def apply(i:Int) = {
+        println("score is: "+i)
+    }
+
     def main(args: Array[String]): Unit = {
-        val person = new Person("lei", 24) // new xxx()生成对象时，除了方法不执行，其他的都执行
+        val person = new Person("lei", 24) // new xxx()生成对象时，除了方法不执行，其他的都执行, 所以print begin end最先打印
         println(person.name)
         println(person.age)
         println(person.gender)
 
-        val obj = new L1_ClassAndObjects()
+        val obj = new L1_ClassAndObjects() // new 对象，使用的class L1
         println(obj.index)
         println(person.gender)
+
+        L1_ClassAndObjects(1000) // object本来不能传参(不是class那种传参构造), 如果看到传参 那么这个object中有apply方法
     }
 }
