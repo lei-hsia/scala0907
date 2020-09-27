@@ -18,7 +18,7 @@ class Person(uname:String, uage:Int) {
         println("say something")
     }
 
-    //内部自定义重载constructor
+    //内部自定义重载constructor: this方法; 第一行调用this函数
     def this(name:String, age:Int, gender: Char) {
         this(name, age) // 首行必须调用class自带的constructor
         this.gender = gender
