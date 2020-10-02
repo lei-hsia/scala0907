@@ -12,6 +12,15 @@ object ScalaOpsCleanDemo {
         context.setLogLevel("WARN")
 
         val lines: RDD[String] = context.textFile("./data/words")
+        // transformation ops; sort demo
         lines.flatMap(_.split(" ")).map((_, 1)).reduceByKey(_+_).map(_.swap).sortByKey(false).map(_.swap).foreach(println)
+
+        // action ops: count, take, first, collect, etc.
+        /*lines.count()
+        lines.first()
+        val strings1 = lines.take(4)
+        strings1.foreach(println)
+        val strings = lines.collect()*/
+        // strings.foreach(println)
     }
 }
