@@ -14,10 +14,10 @@ object SeveralOpsDemo {
     sc.setLogLevel("WARN")
 
     val nameRDD: RDD[(String, Int)] = sc.parallelize(List[(String, Int)]
-      (("lei", 18), ("xia", 19), ("L", 20), ("X", 21)), 3)
+      (("lei", 18), ("lei", 180), ("xia", 19), ("L", 20), ("X", 21)), 3)
 
     val scoreRDD: RDD[(String, Int)] = sc.parallelize(List[(String, Int)]
-      (("lei", 100), ("xia", 200), ("L", 300), ("XXX", 400)), 4)
+      (("lei", 100), ("lei", 1000), ("xia", 200), ("L", 300), ("XXX", 400)), 4)
 
     val rdd1: RDD[(String, (Int, Int))] = nameRDD.join(scoreRDD) // 以nameRDD为基准，join匹配和nameRDD相符合的scoreRDD
     rdd1.foreach(println)
@@ -71,8 +71,26 @@ object SeveralOpsDemo {
 
       listBuffer.iterator // f:Iterator -> iterator; return
     })
-
       rddMPed.count() // action算子触发
 
+    println()
+
+    /*
+    *   distinct
+    * */
+    // 去重
+    val rdd6 = sc.parallelize(List[String]("a", "b", "a", "c", "d", "d"))
+    rdd6.map(e=>(e,1)).reduceByKey((v1,v2)=>{v1+v2}).map(e=>e._1).foreach(println)
+    // rdd6.distinct()
+
+    /*
+    *    cogroup
+    * /**
+   * For each key k in `this` or `other`, return a resulting RDD that contains a tuple with the
+   * list of values for that key in `this` as well as `other`.
+   */
+    * */
+    val rdd7 = nameRDD.cogroup(scoreRDD)
+    rdd7.foreach(println)
   }
 }
