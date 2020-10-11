@@ -92,5 +92,7 @@ object SeveralOpsDemo {
     * */
     val rdd7 = nameRDD.cogroup(scoreRDD)
     rdd7.foreach(println)
+
+    /*  P37: JavaRDD部分跳过了 */
   }
 }
