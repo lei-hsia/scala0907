@@ -48,20 +48,24 @@ object SeveralOpsDemo2 {
     })
 
     rdd4.foreach(println) // 看出，原来的0号均匀地去往了新的0 1 2 3号各一个, 说明repartition是wide dependent的算子，产生shuffle
+
+
     /*
-    rdd4 partition=0, value=rdd3 partition=0, value=lei2
-    rdd4 partition=0, value=rdd3 partition=1, value=lei8
-    rdd4 partition=0, value=rdd3 partition=2, value=lei9
-    rdd4 partition=1, value=rdd3 partition=0, value=lei3
-    rdd4 partition=1, value=rdd3 partition=1, value=lei5
-    rdd4 partition=1, value=rdd3 partition=2, value=lei10
-    rdd4 partition=2, value=rdd3 partition=0, value=lei4
-    rdd4 partition=2, value=rdd3 partition=1, value=lei6
-    rdd4 partition=2, value=rdd3 partition=2, value=lei11
-    rdd4 partition=3, value=rdd3 partition=0, value=lei1
-    rdd4 partition=3, value=rdd3 partition=1, value=lei7
-    rdd4 partition=3, value=rdd3 partition=2, value=lei12
+    *   coalesce: 可增可减分区，默认是没有shuffle的，但是可以指定；如果不让shuffle且增加partition会产生空分区，没有作用，
+    *   所以repartition常用于增加分区，coalesce常用于减少分区
+    *
+    *   coalesce: 默认不shuffle，可以指定允许shuffle
     * */
+    val rdd5 = rdd2.coalesce(2)
+    val rdd6 = rdd5.mapPartitionsWithIndex((index, iter)=>{
+      val list = new ListBuffer[String]
+      while (iter.hasNext){
+        val e = iter.next()
+        list.+=(s"rdd6 partition=${index}, value=${e}")
+      }
+      list.iterator
+    })
+    rdd6.foreach(println)
 
   }
 }
