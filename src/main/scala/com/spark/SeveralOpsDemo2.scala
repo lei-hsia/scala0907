@@ -67,5 +67,17 @@ object SeveralOpsDemo2 {
     })
     rdd6.foreach(println)
 
+    /*  都是action算子
+    *   countByKey: 必须是KV格式
+    *   countByValue: 可以是KV格式，也可以不是，V指的是每一条数据整体，并不是KV中的V
+    *   reduce ...
+    * */
+    val rdd7 = sc.parallelize(List[(String, Int)]( ("a",1), ("b",2), ("c",3), ("c",33), ("d", 4), ("a", 1)))
+    val res1: collection.Map[String, Long] = rdd7.countByKey()
+    //println(res1) // 一个Map整体
+    res1.foreach(println) // Map整体中每个item内容
+
+    val res2: collection.Map[(String, Int), Long] = rdd7.countByValue() // V指的是每一条数据整体，并不是KV中的V
+    res2.foreach(println)
   }
 }
